@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+        <link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/L.Control.Layers.Tree.min.js"></script>
+        <script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/HallazgosdefaunaenlaRumorosa_2.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString' || e.target.feature.geometry.type === 'MultiLineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+        }
+        var map = L.map('map', {
+            zoomControl:false, maxZoom:28, minZoom:1
+        }).fitBounds([[32.48570176699712,-116.07679269237873],[32.68987433383685,-115.71467542299396]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        // remove popup's row if "visible-with-data"
+        function removeEmptyRowsFromPopupContent(content, feature) {
+         var tempDiv = document.createElement('div');
+         tempDiv.innerHTML = content;
+         var rows = tempDiv.querySelectorAll('tr');
+         for (var i = 0; i < rows.length; i++) {
+             var td = rows[i].querySelector('td.visible-with-data');
+             var key = td ? td.id : '';
+             if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+                 rows[i].parentNode.removeChild(rows[i]);
+             }
+         }
+         return tempDiv.innerHTML;
+        }
+        // add class to format popup if it contains media
+		function addClassToPopupIfMedia(content, popup) {
+			var tempDiv = document.createElement('div');
+			tempDiv.innerHTML = content;
+			if (tempDiv.querySelector('td img')) {
+				popup._contentNode.classList.add('media');
+					// Delay to force the redraw
+					setTimeout(function() {
+						popup.update();
+					}, 10);
+			} else {
+				popup._contentNode.classList.remove('media');
+			}
+		}
+        var zoomControl = L.control.zoom({
+            position: 'topleft'
+        }).addTo(map);
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleTerrain_0');
+        map.getPane('pane_GoogleTerrain_0').style.zIndex = 400;
+        var layer_GoogleTerrain_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleTerrain_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleTerrain_0;
+        map.addLayer(layer_GoogleTerrain_0);
+        map.createPane('pane_GoogleSatellite_1');
+        map.getPane('pane_GoogleSatellite_1').style.zIndex = 401;
+        var layer_GoogleSatellite_1 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_1',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_1;
+        map.addLayer(layer_GoogleSatellite_1);
+        function pop_HallazgosdefaunaenlaRumorosa_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (var i in e.target._eventParents) {
+                        if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                            e.target._eventParents[i].resetStyle(e.target);
+                        }
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">fecha</th>\
+                        <td class="visible-with-data" id="fecha">' + (feature.properties['fecha'] !== null ? autolinker.link(feature.properties['fecha'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Referencia</th>\
+                        <td class="visible-with-data" id="Referencia">' + (feature.properties['Referencia'] !== null ? autolinker.link(feature.properties['Referencia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Grupo Faun</th>\
+                        <td class="visible-with-data" id="Grupo Faun">' + (feature.properties['Grupo Faun'] !== null ? autolinker.link(feature.properties['Grupo Faun'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Orden</th>\
+                        <td class="visible-with-data" id="Orden">' + (feature.properties['Orden'] !== null ? autolinker.link(feature.properties['Orden'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre cie</th>\
+                        <td class="visible-with-data" id="Nombre cie">' + (feature.properties['Nombre cie'] !== null ? autolinker.link(feature.properties['Nombre cie'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre com</th>\
+                        <td class="visible-with-data" id="Nombre com">' + (feature.properties['Nombre com'] !== null ? autolinker.link(feature.properties['Nombre com'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOM 059 SE</th>\
+                        <td class="visible-with-data" id="NOM 059 SE">' + (feature.properties['NOM 059 SE'] !== null ? autolinker.link(feature.properties['NOM 059 SE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IUCN</th>\
+                        <td class="visible-with-data" id="IUCN">' + (feature.properties['IUCN'] !== null ? autolinker.link(feature.properties['IUCN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tipo de re</th>\
+                        <td class="visible-with-data" id="Tipo de re">' + (feature.properties['Tipo de re'] !== null ? autolinker.link(feature.properties['Tipo de re'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">X</th>\
+                        <td class="visible-with-data" id="X">' + (feature.properties['X'] !== null ? autolinker.link(feature.properties['X'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Y</th>\
+                        <td class="visible-with-data" id="Y">' + (feature.properties['Y'] !== null ? autolinker.link(feature.properties['Y'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Método de</th>\
+                        <td class="visible-with-data" id="Método de">' + (feature.properties['Método de'] !== null ? autolinker.link(feature.properties['Método de'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Horario de</th>\
+                        <td class="visible-with-data" id="Horario de">' + (feature.properties['Horario de'] !== null ? autolinker.link(feature.properties['Horario de'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Supervisor</th>\
+                        <td class="visible-with-data" id="Supervisor">' + (feature.properties['Supervisor'] !== null ? autolinker.link(feature.properties['Supervisor'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_HallazgosdefaunaenlaRumorosa_2_0(feature) {
+            switch(String(feature.properties['Grupo Faun'])) {
+                case 'Ave':
+                    return {
+                pane: 'pane_HallazgosdefaunaenlaRumorosa_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(9,84,189,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Mamífero':
+                    return {
+                pane: 'pane_HallazgosdefaunaenlaRumorosa_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(194,113,14,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Reptil':
+                    return {
+                pane: 'pane_HallazgosdefaunaenlaRumorosa_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(27,175,11,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_HallazgosdefaunaenlaRumorosa_2');
+        map.getPane('pane_HallazgosdefaunaenlaRumorosa_2').style.zIndex = 402;
+        map.getPane('pane_HallazgosdefaunaenlaRumorosa_2').style['mix-blend-mode'] = 'normal';
+        var layer_HallazgosdefaunaenlaRumorosa_2 = new L.geoJson(json_HallazgosdefaunaenlaRumorosa_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_HallazgosdefaunaenlaRumorosa_2',
+            layerName: 'layer_HallazgosdefaunaenlaRumorosa_2',
+            pane: 'pane_HallazgosdefaunaenlaRumorosa_2',
+            onEachFeature: pop_HallazgosdefaunaenlaRumorosa_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_HallazgosdefaunaenlaRumorosa_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_HallazgosdefaunaenlaRumorosa_2);
+        map.addLayer(layer_HallazgosdefaunaenlaRumorosa_2);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        var overlaysTree = [
+            {label: 'Hallazgos de fauna en la Rumorosa<br /><table><tr><td style="text-align: center;"><img src="legend/HallazgosdefaunaenlaRumorosa_2_Ave0.png" /></td><td>Ave</td></tr><tr><td style="text-align: center;"><img src="legend/HallazgosdefaunaenlaRumorosa_2_Mamífero1.png" /></td><td>Mamífero</td></tr><tr><td style="text-align: center;"><img src="legend/HallazgosdefaunaenlaRumorosa_2_Reptil2.png" /></td><td>Reptil</td></tr></table>', layer: layer_HallazgosdefaunaenlaRumorosa_2},
+            {label: "Google Satellite", layer: layer_GoogleSatellite_1},
+            {label: "Google Terrain", layer: layer_GoogleTerrain_0},]
+        var lay = L.control.layers.tree(null, overlaysTree,{
+            //namedToggle: true,
+            //selectorBack: false,
+            //closedSymbol: '&#8862; &#x1f5c0;',
+            //openedSymbol: '&#8863; &#x1f5c1;',
+            //collapseAll: 'Collapse all',
+            //expandAll: 'Expand all',
+            collapsed: true,
+        });
+        lay.addTo(map);
+        setBounds();
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"Grupo Faun": "str","NOM 059 SE": "str","Referencia": "str","fecha": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_GrupoFaun = document.createElement('div');
+            div_GrupoFaun.id = "div_GrupoFaun";
+            div_GrupoFaun.className= "filterselect";
+            document.getElementById("menu").appendChild(div_GrupoFaun);
+            sel_GrupoFaun = document.createElement('select');
+            sel_GrupoFaun.multiple = true;
+            sel_GrupoFaun.size = 3;
+            sel_GrupoFaun.id = "sel_GrupoFaun";
+            var GrupoFaun_options_str = "<option value='' unselected></option>";
+            sel_GrupoFaun.onchange = function(){filterFunc()};
+            GrupoFaun_options_str  += '<option value="Ave">Ave</option>';
+            GrupoFaun_options_str  += '<option value="Mamífero">Mamífero</option>';
+            GrupoFaun_options_str  += '<option value="Reptil">Reptil</option>';
+            sel_GrupoFaun.innerHTML = GrupoFaun_options_str;
+            div_GrupoFaun.appendChild(sel_GrupoFaun);
+            var lab_GrupoFaun = document.createElement('div');
+            lab_GrupoFaun.innerHTML = 'Grupo Faun';
+            lab_GrupoFaun.className = 'filterlabel';
+            div_GrupoFaun.appendChild(lab_GrupoFaun);
+            var reset_GrupoFaun = document.createElement('div');
+            reset_GrupoFaun.innerHTML = 'clear filter';
+            reset_GrupoFaun.className = 'filterlabel';
+            reset_GrupoFaun.onclick = function() {
+                var options = document.getElementById("sel_GrupoFaun").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_GrupoFaun.appendChild(reset_GrupoFaun);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_NOM059SE = document.createElement('div');
+            div_NOM059SE.id = "div_NOM059SE";
+            div_NOM059SE.className= "filterselect";
+            document.getElementById("menu").appendChild(div_NOM059SE);
+            sel_NOM059SE = document.createElement('select');
+            sel_NOM059SE.multiple = true;
+            sel_NOM059SE.size = 3;
+            sel_NOM059SE.id = "sel_NOM059SE";
+            var NOM059SE_options_str = "<option value='' unselected></option>";
+            sel_NOM059SE.onchange = function(){filterFunc()};
+            NOM059SE_options_str  += '<option value="-">-</option>';
+            NOM059SE_options_str  += '<option value="A">A</option>';
+            NOM059SE_options_str  += '<option value="PR">PR</option>';
+            sel_NOM059SE.innerHTML = NOM059SE_options_str;
+            div_NOM059SE.appendChild(sel_NOM059SE);
+            var lab_NOM059SE = document.createElement('div');
+            lab_NOM059SE.innerHTML = 'NOM 059 SE';
+            lab_NOM059SE.className = 'filterlabel';
+            div_NOM059SE.appendChild(lab_NOM059SE);
+            var reset_NOM059SE = document.createElement('div');
+            reset_NOM059SE.innerHTML = 'clear filter';
+            reset_NOM059SE.className = 'filterlabel';
+            reset_NOM059SE.onclick = function() {
+                var options = document.getElementById("sel_NOM059SE").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_NOM059SE.appendChild(reset_NOM059SE);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Referencia = document.createElement('div');
+            div_Referencia.id = "div_Referencia";
+            div_Referencia.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Referencia);
+            sel_Referencia = document.createElement('select');
+            sel_Referencia.multiple = true;
+            sel_Referencia.size = 10;
+            sel_Referencia.id = "sel_Referencia";
+            var Referencia_options_str = "<option value='' unselected></option>";
+            sel_Referencia.onchange = function(){filterFunc()};
+            Referencia_options_str  += '<option value="ARPME">ARPME</option>';
+            Referencia_options_str  += '<option value="Almacen RP">Almacen RP</option>';
+            Referencia_options_str  += '<option value="Almacén">Almacén</option>';
+            Referencia_options_str  += '<option value="CEA">CEA</option>';
+            Referencia_options_str  += '<option value="CT 01">CT 01</option>';
+            Referencia_options_str  += '<option value="CT 02">CT 02</option>';
+            Referencia_options_str  += '<option value="CT 03">CT 03</option>';
+            Referencia_options_str  += '<option value="CT 04">CT 04</option>';
+            Referencia_options_str  += '<option value="CT 05">CT 05</option>';
+            Referencia_options_str  += '<option value="CT 06">CT 06</option>';
+            Referencia_options_str  += '<option value="CT 07">CT 07</option>';
+            Referencia_options_str  += '<option value="CT 08">CT 08</option>';
+            Referencia_options_str  += '<option value="CT 09">CT 09</option>';
+            Referencia_options_str  += '<option value="CT 10">CT 10</option>';
+            Referencia_options_str  += '<option value="CT 11">CT 11</option>';
+            Referencia_options_str  += '<option value="Camino de acceso">Camino de acceso</option>';
+            Referencia_options_str  += '<option value="Camino- Cerca de cámara perimetral">Camino- Cerca de cámara perimetral</option>';
+            Referencia_options_str  += '<option value="Caseta de acceso">Caseta de acceso</option>';
+            Referencia_options_str  += '<option value="Cerco perimetral">Cerco perimetral</option>';
+            Referencia_options_str  += '<option value="Detras de Oficina">Detras de Oficina</option>';
+            Referencia_options_str  += '<option value="Detrás de Subestación">Detrás de Subestación</option>';
+            Referencia_options_str  += '<option value="Detrás de parque solar">Detrás de parque solar</option>';
+            Referencia_options_str  += '<option value="Estacionamiento">Estacionamiento</option>';
+            Referencia_options_str  += '<option value="Fosas de Contención">Fosas de Contención</option>';
+            Referencia_options_str  += '<option value="Frente a O&M">Frente a O&M</option>';
+            Referencia_options_str  += '<option value="HINCA 79">HINCA 79</option>';
+            Referencia_options_str  += '<option value="Hinca 23">Hinca 23</option>';
+            Referencia_options_str  += '<option value="O&M">O&M</option>';
+            Referencia_options_str  += '<option value="Parcela de reforestación">Parcela de reforestación</option>';
+            Referencia_options_str  += '<option value="Parcela de reubicación">Parcela de reubicación</option>';
+            Referencia_options_str  += '<option value="SEL">SEL</option>';
+            Referencia_options_str  += '<option value="Subestación eléctrica">Subestación eléctrica</option>';
+            Referencia_options_str  += '<option value="Torre 10">Torre 10</option>';
+            Referencia_options_str  += '<option value="Torre 11">Torre 11</option>';
+            Referencia_options_str  += '<option value="Torre 9">Torre 9</option>';
+            Referencia_options_str  += '<option value="Vivero">Vivero</option>';
+            Referencia_options_str  += '<option value="Área de Paneles">Área de Paneles</option>';
+            sel_Referencia.innerHTML = Referencia_options_str;
+            div_Referencia.appendChild(sel_Referencia);
+            var lab_Referencia = document.createElement('div');
+            lab_Referencia.innerHTML = 'Referencia';
+            lab_Referencia.className = 'filterlabel';
+            div_Referencia.appendChild(lab_Referencia);
+            var reset_Referencia = document.createElement('div');
+            reset_Referencia.innerHTML = 'clear filter';
+            reset_Referencia.className = 'filterlabel';
+            reset_Referencia.onclick = function() {
+                var options = document.getElementById("sel_Referencia").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Referencia.appendChild(reset_Referencia);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_fecha = document.createElement('div');
+            div_fecha.id = "div_fecha";
+            div_fecha.className= "filterselect";
+            document.getElementById("menu").appendChild(div_fecha);
+            sel_fecha = document.createElement('select');
+            sel_fecha.multiple = true;
+            sel_fecha.size = 10;
+            sel_fecha.id = "sel_fecha";
+            var fecha_options_str = "<option value='' unselected></option>";
+            sel_fecha.onchange = function(){filterFunc()};
+            fecha_options_str  += '<option value="06/01/2025">06/01/2025</option>';
+            fecha_options_str  += '<option value="07/01/2025">07/01/2025</option>';
+            fecha_options_str  += '<option value="08/01/2025">08/01/2025</option>';
+            fecha_options_str  += '<option value="09/01/2025">09/01/2025</option>';
+            fecha_options_str  += '<option value="1/4/2024">1/4/2024</option>';
+            fecha_options_str  += '<option value="1/7/2024">1/7/2024</option>';
+            fecha_options_str  += '<option value="1/8/2024">1/8/2024</option>';
+            fecha_options_str  += '<option value="10/01/2025">10/01/2025</option>';
+            fecha_options_str  += '<option value="10/10/2024">10/10/2024</option>';
+            fecha_options_str  += '<option value="10/12/2024">10/12/2024</option>';
+            fecha_options_str  += '<option value="10/5/2024">10/5/2024</option>';
+            fecha_options_str  += '<option value="10/6/2024">10/6/2024</option>';
+            fecha_options_str  += '<option value="10/7/2024">10/7/2024</option>';
+            fecha_options_str  += '<option value="10/9/2024">10/9/2024</option>';
+            fecha_options_str  += '<option value="11/10/2023">11/10/2023</option>';
+            fecha_options_str  += '<option value="11/10/2024">11/10/2024</option>';
+            fecha_options_str  += '<option value="11/11/2024">11/11/2024</option>';
+            fecha_options_str  += '<option value="11/12/2024">11/12/2024</option>';
+            fecha_options_str  += '<option value="11/7/2024">11/7/2024</option>';
+            fecha_options_str  += '<option value="11/9/2024">11/9/2024</option>';
+            fecha_options_str  += '<option value="12/11/2024">12/11/2024</option>';
+            fecha_options_str  += '<option value="12/12/2024">12/12/2024</option>';
+            fecha_options_str  += '<option value="12/6/2024">12/6/2024</option>';
+            fecha_options_str  += '<option value="12/7/2024">12/7/2024</option>';
+            fecha_options_str  += '<option value="12/8/2024">12/8/2024</option>';
+            fecha_options_str  += '<option value="12/9/2024">12/9/2024</option>';
+            fecha_options_str  += '<option value="13/01/2025">13/01/2025</option>';
+            fecha_options_str  += '<option value="13/10/2023">13/10/2023</option>';
+            fecha_options_str  += '<option value="13/11/2024">13/11/2024</option>';
+            fecha_options_str  += '<option value="13/5/2024">13/5/2024</option>';
+            fecha_options_str  += '<option value="13/6/2024">13/6/2024</option>';
+            fecha_options_str  += '<option value="13/8/2024">13/8/2024</option>';
+            fecha_options_str  += '<option value="13/9/2024">13/9/2024</option>';
+            fecha_options_str  += '<option value="14/01/2025">14/01/2025</option>';
+            fecha_options_str  += '<option value="14/10/2024">14/10/2024</option>';
+            fecha_options_str  += '<option value="14/11/2024">14/11/2024</option>';
+            fecha_options_str  += '<option value="14/5/2024">14/5/2024</option>';
+            fecha_options_str  += '<option value="14/6/2024">14/6/2024</option>';
+            fecha_options_str  += '<option value="14/8/2024">14/8/2024</option>';
+            fecha_options_str  += '<option value="15/01/2025">15/01/2025</option>';
+            fecha_options_str  += '<option value="15/10/2024">15/10/2024</option>';
+            fecha_options_str  += '<option value="15/7/2024">15/7/2024</option>';
+            fecha_options_str  += '<option value="15/8/2024">15/8/2024</option>';
+            fecha_options_str  += '<option value="16/01/2025">16/01/2025</option>';
+            fecha_options_str  += '<option value="16/10/2023">16/10/2023</option>';
+            fecha_options_str  += '<option value="16/10/2024">16/10/2024</option>';
+            fecha_options_str  += '<option value="16/12/2024">16/12/2024</option>';
+            fecha_options_str  += '<option value="16/7/2024">16/7/2024</option>';
+            fecha_options_str  += '<option value="16/8/2024">16/8/2024</option>';
+            fecha_options_str  += '<option value="17/10/2024">17/10/2024</option>';
+            fecha_options_str  += '<option value="17/12/2024">17/12/2024</option>';
+            fecha_options_str  += '<option value="17/5/2024">17/5/2024</option>';
+            fecha_options_str  += '<option value="17/6/2024">17/6/2024</option>';
+            fecha_options_str  += '<option value="17/7/2024">17/7/2024</option>';
+            fecha_options_str  += '<option value="17/9/2024">17/9/2024</option>';
+            fecha_options_str  += '<option value="18/12/2024">18/12/2024</option>';
+            fecha_options_str  += '<option value="18/6/2024">18/6/2024</option>';
+            fecha_options_str  += '<option value="18/7/2024">18/7/2024</option>';
+            fecha_options_str  += '<option value="18/9/2024">18/9/2024</option>';
+            fecha_options_str  += '<option value="19/10/2023">19/10/2023</option>';
+            fecha_options_str  += '<option value="19/11/2024">19/11/2024</option>';
+            fecha_options_str  += '<option value="19/12/2024">19/12/2024</option>';
+            fecha_options_str  += '<option value="19/2/2024">19/2/2024</option>';
+            fecha_options_str  += '<option value="19/3/2024">19/3/2024</option>';
+            fecha_options_str  += '<option value="19/6/2024">19/6/2024</option>';
+            fecha_options_str  += '<option value="19/7/2024">19/7/2024</option>';
+            fecha_options_str  += '<option value="19/8/2024">19/8/2024</option>';
+            fecha_options_str  += '<option value="19/9/2024">19/9/2024</option>';
+            fecha_options_str  += '<option value="2/1/2025">2/1/2025</option>';
+            fecha_options_str  += '<option value="2/10/2023">2/10/2023</option>';
+            fecha_options_str  += '<option value="2/10/2024">2/10/2024</option>';
+            fecha_options_str  += '<option value="2/12/2024">2/12/2024</option>';
+            fecha_options_str  += '<option value="2/4/2024">2/4/2024</option>';
+            fecha_options_str  += '<option value="2/7/2024">2/7/2024</option>';
+            fecha_options_str  += '<option value="2/9/2024">2/9/2024</option>';
+            fecha_options_str  += '<option value="20/11/2024">20/11/2024</option>';
+            fecha_options_str  += '<option value="20/3/2024">20/3/2024</option>';
+            fecha_options_str  += '<option value="20/6/2024">20/6/2024</option>';
+            fecha_options_str  += '<option value="20/8/2024">20/8/2024</option>';
+            fecha_options_str  += '<option value="21/10/2024">21/10/2024</option>';
+            fecha_options_str  += '<option value="21/11/2024">21/11/2024</option>';
+            fecha_options_str  += '<option value="21/3/2024">21/3/2024</option>';
+            fecha_options_str  += '<option value="21/5/2024">21/5/2024</option>';
+            fecha_options_str  += '<option value="21/6/2024">21/6/2024</option>';
+            fecha_options_str  += '<option value="21/8/2024">21/8/2024</option>';
+            fecha_options_str  += '<option value="22/10/2024">22/10/2024</option>';
+            fecha_options_str  += '<option value="22/2/2024">22/2/2024</option>';
+            fecha_options_str  += '<option value="22/3/2024">22/3/2024</option>';
+            fecha_options_str  += '<option value="22/4/2024">22/4/2024</option>';
+            fecha_options_str  += '<option value="22/5/2024">22/5/2024</option>';
+            fecha_options_str  += '<option value="22/7/2024">22/7/2024</option>';
+            fecha_options_str  += '<option value="22/8/2024">22/8/2024</option>';
+            fecha_options_str  += '<option value="23/10/2023">23/10/2023</option>';
+            fecha_options_str  += '<option value="23/10/2024">23/10/2024</option>';
+            fecha_options_str  += '<option value="23/12/2024">23/12/2024</option>';
+            fecha_options_str  += '<option value="23/4/2024">23/4/2024</option>';
+            fecha_options_str  += '<option value="23/7/2024">23/7/2024</option>';
+            fecha_options_str  += '<option value="23/8/2024">23/8/2024</option>';
+            fecha_options_str  += '<option value="23/9/2024">23/9/2024</option>';
+            fecha_options_str  += '<option value="24/10/2023">24/10/2023</option>';
+            fecha_options_str  += '<option value="24/10/2024">24/10/2024</option>';
+            fecha_options_str  += '<option value="24/5/2024">24/5/2024</option>';
+            fecha_options_str  += '<option value="24/6/2024">24/6/2024</option>';
+            fecha_options_str  += '<option value="24/7/2024">24/7/2024</option>';
+            fecha_options_str  += '<option value="24/9/2024">24/9/2024</option>';
+            fecha_options_str  += '<option value="25/11/2024">25/11/2024</option>';
+            fecha_options_str  += '<option value="25/3/2024">25/3/2024</option>';
+            fecha_options_str  += '<option value="25/4/2024">25/4/2024</option>';
+            fecha_options_str  += '<option value="25/6/2024">25/6/2024</option>';
+            fecha_options_str  += '<option value="25/7/2024">25/7/2024</option>';
+            fecha_options_str  += '<option value="25/9/2024">25/9/2024</option>';
+            fecha_options_str  += '<option value="26/11/2024">26/11/2024</option>';
+            fecha_options_str  += '<option value="26/12/2024">26/12/2024</option>';
+            fecha_options_str  += '<option value="26/2/2024">26/2/2024</option>';
+            fecha_options_str  += '<option value="26/3/2024">26/3/2024</option>';
+            fecha_options_str  += '<option value="26/4/2024">26/4/2024</option>';
+            fecha_options_str  += '<option value="26/6/2024">26/6/2024</option>';
+            fecha_options_str  += '<option value="26/7/2024">26/7/2024</option>';
+            fecha_options_str  += '<option value="26/8/2024">26/8/2024</option>';
+            fecha_options_str  += '<option value="26/9/2024">26/9/2024</option>';
+            fecha_options_str  += '<option value="27/11/2024">27/11/2024</option>';
+            fecha_options_str  += '<option value="27/5/2024">27/5/2024</option>';
+            fecha_options_str  += '<option value="27/6/2024">27/6/2024</option>';
+            fecha_options_str  += '<option value="27/8/2024">27/8/2024</option>';
+            fecha_options_str  += '<option value="28/10/2024">28/10/2024</option>';
+            fecha_options_str  += '<option value="28/11/2024">28/11/2024</option>';
+            fecha_options_str  += '<option value="28/6/2024">28/6/2024</option>';
+            fecha_options_str  += '<option value="28/8/2024">28/8/2024</option>';
+            fecha_options_str  += '<option value="29/10/2024">29/10/2024</option>';
+            fecha_options_str  += '<option value="29/11/2024">29/11/2024</option>';
+            fecha_options_str  += '<option value="29/4/2024">29/4/2024</option>';
+            fecha_options_str  += '<option value="29/5/2024">29/5/2024</option>';
+            fecha_options_str  += '<option value="29/7/2024">29/7/2024</option>';
+            fecha_options_str  += '<option value="3/10/2023">3/10/2023</option>';
+            fecha_options_str  += '<option value="3/10/2024">3/10/2024</option>';
+            fecha_options_str  += '<option value="3/12/2024">3/12/2024</option>';
+            fecha_options_str  += '<option value="3/6/2024">3/6/2024</option>';
+            fecha_options_str  += '<option value="3/7/2024">3/7/2024</option>';
+            fecha_options_str  += '<option value="3/9/2024">3/9/2024</option>';
+            fecha_options_str  += '<option value="30/10/2024">30/10/2024</option>';
+            fecha_options_str  += '<option value="30/12/2024">30/12/2024</option>';
+            fecha_options_str  += '<option value="30/4/2024">30/4/2024</option>';
+            fecha_options_str  += '<option value="30/5/2024">30/5/2024</option>';
+            fecha_options_str  += '<option value="30/7/2024">30/7/2024</option>';
+            fecha_options_str  += '<option value="30/9/2024">30/9/2024</option>';
+            fecha_options_str  += '<option value="31/10/2024">31/10/2024</option>';
+            fecha_options_str  += '<option value="31/5/2024">31/5/2024</option>';
+            fecha_options_str  += '<option value="31/7/2024">31/7/2024</option>';
+            fecha_options_str  += '<option value="4/10/2023">4/10/2023</option>';
+            fecha_options_str  += '<option value="4/10/2024">4/10/2024</option>';
+            fecha_options_str  += '<option value="4/11/2024">4/11/2024</option>';
+            fecha_options_str  += '<option value="4/12/2024">4/12/2024</option>';
+            fecha_options_str  += '<option value="4/4/2024">4/4/2024</option>';
+            fecha_options_str  += '<option value="4/6/2024">4/6/2024</option>';
+            fecha_options_str  += '<option value="4/7/2024">4/7/2024</option>';
+            fecha_options_str  += '<option value="4/9/2024">4/9/2024</option>';
+            fecha_options_str  += '<option value="5/10/2023">5/10/2023</option>';
+            fecha_options_str  += '<option value="5/11/2024">5/11/2024</option>';
+            fecha_options_str  += '<option value="5/12/2024">5/12/2024</option>';
+            fecha_options_str  += '<option value="5/4/2024">5/4/2024</option>';
+            fecha_options_str  += '<option value="5/7/2024">5/7/2024</option>';
+            fecha_options_str  += '<option value="5/8/2024">5/8/2024</option>';
+            fecha_options_str  += '<option value="5/9/2024">5/9/2024</option>';
+            fecha_options_str  += '<option value="6/11/2024">6/11/2024</option>';
+            fecha_options_str  += '<option value="6/12/2024">6/12/2024</option>';
+            fecha_options_str  += '<option value="6/5/2024">6/5/2024</option>';
+            fecha_options_str  += '<option value="6/6/2024">6/6/2024</option>';
+            fecha_options_str  += '<option value="6/8/2024">6/8/2024</option>';
+            fecha_options_str  += '<option value="6/9/2024">6/9/2024</option>';
+            fecha_options_str  += '<option value="7/10/2024">7/10/2024</option>';
+            fecha_options_str  += '<option value="7/11/2024">7/11/2024</option>';
+            fecha_options_str  += '<option value="7/5/2024">7/5/2024</option>';
+            fecha_options_str  += '<option value="7/8/2024">7/8/2024</option>';
+            fecha_options_str  += '<option value="8/10/2024">8/10/2024</option>';
+            fecha_options_str  += '<option value="8/4/2024">8/4/2024</option>';
+            fecha_options_str  += '<option value="8/7/2024">8/7/2024</option>';
+            fecha_options_str  += '<option value="8/8/2024">8/8/2024</option>';
+            fecha_options_str  += '<option value="9/10/2023">9/10/2023</option>';
+            fecha_options_str  += '<option value="9/10/2024">9/10/2024</option>';
+            fecha_options_str  += '<option value="9/12/2024">9/12/2024</option>';
+            fecha_options_str  += '<option value="9/5/2024">9/5/2024</option>';
+            fecha_options_str  += '<option value="9/7/2024">9/7/2024</option>';
+            fecha_options_str  += '<option value="9/8/2024">9/8/2024</option>';
+            fecha_options_str  += '<option value="9/9/2024">9/9/2024</option>';
+            sel_fecha.innerHTML = fecha_options_str;
+            div_fecha.appendChild(sel_fecha);
+            var lab_fecha = document.createElement('div');
+            lab_fecha.innerHTML = 'fecha';
+            lab_fecha.className = 'filterlabel';
+            div_fecha.appendChild(lab_fecha);
+            var reset_fecha = document.createElement('div');
+            reset_fecha.innerHTML = 'clear filter';
+            reset_fecha.className = 'filterlabel';
+            reset_fecha.onclick = function() {
+                var options = document.getElementById("sel_fecha").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_fecha.appendChild(reset_fecha);
+        </script>
+    </body>
+</html>
