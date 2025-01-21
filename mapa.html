@@ -44,7 +44,7 @@
         <script src="js/tailDT.js"></script>
 <script src="js/nouislider.min.js"></script>
 <script src="js/wNumb.js"></script>
-        <script src="data/HALLAZGOSFAUNA_2.js"></script>
+        <script src="data/HallazgosdefaunaenlaRumorosa_2.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -63,7 +63,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[32.564273128937394,-115.96245327613909],[32.615301663493405,-115.87193330835747]]);
+        }).fitBounds([[32.48570176699712,-116.07679269237873],[32.68987433383685,-115.71467542299396]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -138,7 +138,7 @@
         });
         layer_GoogleSatellite_1;
         map.addLayer(layer_GoogleSatellite_1);
-        function pop_HALLAZGOSFAUNA_2(feature, layer) {
+        function pop_HallazgosdefaunaenlaRumorosa_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (var i in e.target._eventParents) {
@@ -151,12 +151,8 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">IDF</th>\
-                        <td class="visible-with-data" id="IDF">' + (feature.properties['IDF'] !== null ? autolinker.link(feature.properties['IDF'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Fecha</th>\
-                        <td class="visible-with-data" id="Fecha">' + (feature.properties['Fecha'] !== null ? autolinker.link(feature.properties['Fecha'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">fecha</th>\
+                        <td class="visible-with-data" id="fecha">' + (feature.properties['fecha'] !== null ? autolinker.link(feature.properties['fecha'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Referencia</th>\
@@ -199,8 +195,16 @@
                         <td class="visible-with-data" id="Y">' + (feature.properties['Y'] !== null ? autolinker.link(feature.properties['Y'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">M�todo d</th>\
-                        <td class="visible-with-data" id="M�todo d">' + (feature.properties['M�todo d'] !== null ? autolinker.link(feature.properties['M�todo d'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Método de</th>\
+                        <td class="visible-with-data" id="Método de">' + (feature.properties['Método de'] !== null ? autolinker.link(feature.properties['Método de'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Horario de</th>\
+                        <td class="visible-with-data" id="Horario de">' + (feature.properties['Horario de'] !== null ? autolinker.link(feature.properties['Horario de'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Supervisor</th>\
+                        <td class="visible-with-data" id="Supervisor">' + (feature.properties['Supervisor'] !== null ? autolinker.link(feature.properties['Supervisor'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -210,11 +214,11 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_HALLAZGOSFAUNA_2_0(feature) {
+        function style_HallazgosdefaunaenlaRumorosa_2_0(feature) {
             switch(String(feature.properties['Grupo Faun'])) {
                 case 'Ave':
                     return {
-                pane: 'pane_HALLAZGOSFAUNA_2',
+                pane: 'pane_HallazgosdefaunaenlaRumorosa_2',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -228,9 +232,9 @@
                 interactive: true,
             }
                     break;
-                case 'Mam�fero':
+                case 'Mamífero':
                     return {
-                pane: 'pane_HALLAZGOSFAUNA_2',
+                pane: 'pane_HallazgosdefaunaenlaRumorosa_2',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -246,7 +250,7 @@
                     break;
                 case 'Reptil':
                     return {
-                pane: 'pane_HALLAZGOSFAUNA_2',
+                pane: 'pane_HallazgosdefaunaenlaRumorosa_2',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -262,26 +266,26 @@
                     break;
             }
         }
-        map.createPane('pane_HALLAZGOSFAUNA_2');
-        map.getPane('pane_HALLAZGOSFAUNA_2').style.zIndex = 402;
-        map.getPane('pane_HALLAZGOSFAUNA_2').style['mix-blend-mode'] = 'normal';
-        var layer_HALLAZGOSFAUNA_2 = new L.geoJson(json_HALLAZGOSFAUNA_2, {
+        map.createPane('pane_HallazgosdefaunaenlaRumorosa_2');
+        map.getPane('pane_HallazgosdefaunaenlaRumorosa_2').style.zIndex = 402;
+        map.getPane('pane_HallazgosdefaunaenlaRumorosa_2').style['mix-blend-mode'] = 'normal';
+        var layer_HallazgosdefaunaenlaRumorosa_2 = new L.geoJson(json_HallazgosdefaunaenlaRumorosa_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_HALLAZGOSFAUNA_2',
-            layerName: 'layer_HALLAZGOSFAUNA_2',
-            pane: 'pane_HALLAZGOSFAUNA_2',
-            onEachFeature: pop_HALLAZGOSFAUNA_2,
+            dataVar: 'json_HallazgosdefaunaenlaRumorosa_2',
+            layerName: 'layer_HallazgosdefaunaenlaRumorosa_2',
+            pane: 'pane_HallazgosdefaunaenlaRumorosa_2',
+            onEachFeature: pop_HallazgosdefaunaenlaRumorosa_2,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_HALLAZGOSFAUNA_2_0(feature));
+                return L.circleMarker(latlng, style_HallazgosdefaunaenlaRumorosa_2_0(feature));
             },
         });
-        bounds_group.addLayer(layer_HALLAZGOSFAUNA_2);
-        map.addLayer(layer_HALLAZGOSFAUNA_2);
+        bounds_group.addLayer(layer_HallazgosdefaunaenlaRumorosa_2);
+        map.addLayer(layer_HallazgosdefaunaenlaRumorosa_2);
         var osmGeocoder = new L.Control.Geocoder({
             collapsed: true,
             position: 'topleft',
@@ -294,7 +298,7 @@
         .title += 'Search for a place';
         var baseMaps = {};
         var overlaysTree = [
-            {label: 'HALLAZGOS FAUNA<br /><table><tr><td style="text-align: center;"><img src="legend/HALLAZGOSFAUNA_2_Ave0.png" /></td><td>Ave</td></tr><tr><td style="text-align: center;"><img src="legend/HALLAZGOSFAUNA_2_Mamifero1.png" /></td><td>Mamifero</td></tr><tr><td style="text-align: center;"><img src="legend/HALLAZGOSFAUNA_2_Reptil2.png" /></td><td>Reptil</td></tr></table>', layer: layer_HALLAZGOSFAUNA_2},
+            {label: 'Hallazgos de fauna en la Rumorosa<br /><table><tr><td style="text-align: center;"><img src="legend/HallazgosdefaunaenlaRumorosa_2_Ave0.png" /></td><td>Ave</td></tr><tr><td style="text-align: center;"><img src="legend/HallazgosdefaunaenlaRumorosa_2_Mamífero1.png" /></td><td>Mamífero</td></tr><tr><td style="text-align: center;"><img src="legend/HallazgosdefaunaenlaRumorosa_2_Reptil2.png" /></td><td>Reptil</td></tr></table>', layer: layer_HallazgosdefaunaenlaRumorosa_2},
             {label: "Google Satellite", layer: layer_GoogleSatellite_1},
             {label: "Google Terrain", layer: layer_GoogleTerrain_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
@@ -327,7 +331,7 @@
         document.getElementById("all").appendChild(col1);
         document.getElementById("all").appendChild(col2);
         col1.appendChild(mapDiv)
-        var Filters = {"Grupo Faun": "str","Fecha": "str","NOM 059 SE": "str"};
+        var Filters = {"Grupo Faun": "str","NOM 059 SE": "str","Referencia": "str","fecha": "str"};
         function filterFunc() {
           map.eachLayer(function(lyr){
           if ("options" in lyr && "dataVar" in lyr["options"]){
@@ -430,7 +434,7 @@
             var GrupoFaun_options_str = "<option value='' unselected></option>";
             sel_GrupoFaun.onchange = function(){filterFunc()};
             GrupoFaun_options_str  += '<option value="Ave">Ave</option>';
-            GrupoFaun_options_str  += '<option value="Mam�fero">Mam�fero</option>';
+            GrupoFaun_options_str  += '<option value="Mamífero">Mamífero</option>';
             GrupoFaun_options_str  += '<option value="Reptil">Reptil</option>';
             sel_GrupoFaun.innerHTML = GrupoFaun_options_str;
             div_GrupoFaun.appendChild(sel_GrupoFaun);
@@ -449,219 +453,6 @@
                 filterFunc();
             };
             div_GrupoFaun.appendChild(reset_GrupoFaun);
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_Fecha = document.createElement('div');
-            div_Fecha.id = "div_Fecha";
-            div_Fecha.className= "filterselect";
-            document.getElementById("menu").appendChild(div_Fecha);
-            sel_Fecha = document.createElement('select');
-            sel_Fecha.multiple = true;
-            sel_Fecha.size = 10;
-            sel_Fecha.id = "sel_Fecha";
-            var Fecha_options_str = "<option value='' unselected></option>";
-            sel_Fecha.onchange = function(){filterFunc()};
-            Fecha_options_str  += '<option value="06/01/2025">06/01/2025</option>';
-            Fecha_options_str  += '<option value="07/01/2025">07/01/2025</option>';
-            Fecha_options_str  += '<option value="08/01/2025">08/01/2025</option>';
-            Fecha_options_str  += '<option value="09/01/2025">09/01/2025</option>';
-            Fecha_options_str  += '<option value="1/4/2024">1/4/2024</option>';
-            Fecha_options_str  += '<option value="1/7/2024">1/7/2024</option>';
-            Fecha_options_str  += '<option value="1/8/2024">1/8/2024</option>';
-            Fecha_options_str  += '<option value="10/01/2025">10/01/2025</option>';
-            Fecha_options_str  += '<option value="10/10/2024">10/10/2024</option>';
-            Fecha_options_str  += '<option value="10/12/2024">10/12/2024</option>';
-            Fecha_options_str  += '<option value="10/5/2024">10/5/2024</option>';
-            Fecha_options_str  += '<option value="10/6/2024">10/6/2024</option>';
-            Fecha_options_str  += '<option value="10/7/2024">10/7/2024</option>';
-            Fecha_options_str  += '<option value="10/9/2024">10/9/2024</option>';
-            Fecha_options_str  += '<option value="11/10/2023">11/10/2023</option>';
-            Fecha_options_str  += '<option value="11/10/2024">11/10/2024</option>';
-            Fecha_options_str  += '<option value="11/11/2024">11/11/2024</option>';
-            Fecha_options_str  += '<option value="11/12/2024">11/12/2024</option>';
-            Fecha_options_str  += '<option value="11/7/2024">11/7/2024</option>';
-            Fecha_options_str  += '<option value="11/9/2024">11/9/2024</option>';
-            Fecha_options_str  += '<option value="12/11/2024">12/11/2024</option>';
-            Fecha_options_str  += '<option value="12/12/2024">12/12/2024</option>';
-            Fecha_options_str  += '<option value="12/6/2024">12/6/2024</option>';
-            Fecha_options_str  += '<option value="12/7/2024">12/7/2024</option>';
-            Fecha_options_str  += '<option value="12/8/2024">12/8/2024</option>';
-            Fecha_options_str  += '<option value="12/9/2024">12/9/2024</option>';
-            Fecha_options_str  += '<option value="13/01/2025">13/01/2025</option>';
-            Fecha_options_str  += '<option value="13/10/2023">13/10/2023</option>';
-            Fecha_options_str  += '<option value="13/11/2024">13/11/2024</option>';
-            Fecha_options_str  += '<option value="13/5/2024">13/5/2024</option>';
-            Fecha_options_str  += '<option value="13/6/2024">13/6/2024</option>';
-            Fecha_options_str  += '<option value="13/8/2024">13/8/2024</option>';
-            Fecha_options_str  += '<option value="13/9/2024">13/9/2024</option>';
-            Fecha_options_str  += '<option value="14/01/2025">14/01/2025</option>';
-            Fecha_options_str  += '<option value="14/10/2024">14/10/2024</option>';
-            Fecha_options_str  += '<option value="14/11/2024">14/11/2024</option>';
-            Fecha_options_str  += '<option value="14/5/2024">14/5/2024</option>';
-            Fecha_options_str  += '<option value="14/6/2024">14/6/2024</option>';
-            Fecha_options_str  += '<option value="14/8/2024">14/8/2024</option>';
-            Fecha_options_str  += '<option value="15/01/2025">15/01/2025</option>';
-            Fecha_options_str  += '<option value="15/10/2024">15/10/2024</option>';
-            Fecha_options_str  += '<option value="15/7/2024">15/7/2024</option>';
-            Fecha_options_str  += '<option value="15/8/2024">15/8/2024</option>';
-            Fecha_options_str  += '<option value="16/01/2025">16/01/2025</option>';
-            Fecha_options_str  += '<option value="16/10/2023">16/10/2023</option>';
-            Fecha_options_str  += '<option value="16/10/2024">16/10/2024</option>';
-            Fecha_options_str  += '<option value="16/12/2024">16/12/2024</option>';
-            Fecha_options_str  += '<option value="16/7/2024">16/7/2024</option>';
-            Fecha_options_str  += '<option value="16/8/2024">16/8/2024</option>';
-            Fecha_options_str  += '<option value="17/10/2024">17/10/2024</option>';
-            Fecha_options_str  += '<option value="17/12/2024">17/12/2024</option>';
-            Fecha_options_str  += '<option value="17/5/2024">17/5/2024</option>';
-            Fecha_options_str  += '<option value="17/6/2024">17/6/2024</option>';
-            Fecha_options_str  += '<option value="17/7/2024">17/7/2024</option>';
-            Fecha_options_str  += '<option value="17/9/2024">17/9/2024</option>';
-            Fecha_options_str  += '<option value="18/12/2024">18/12/2024</option>';
-            Fecha_options_str  += '<option value="18/6/2024">18/6/2024</option>';
-            Fecha_options_str  += '<option value="18/7/2024">18/7/2024</option>';
-            Fecha_options_str  += '<option value="18/9/2024">18/9/2024</option>';
-            Fecha_options_str  += '<option value="19/10/2023">19/10/2023</option>';
-            Fecha_options_str  += '<option value="19/11/2024">19/11/2024</option>';
-            Fecha_options_str  += '<option value="19/12/2024">19/12/2024</option>';
-            Fecha_options_str  += '<option value="19/2/2024">19/2/2024</option>';
-            Fecha_options_str  += '<option value="19/3/2024">19/3/2024</option>';
-            Fecha_options_str  += '<option value="19/6/2024">19/6/2024</option>';
-            Fecha_options_str  += '<option value="19/7/2024">19/7/2024</option>';
-            Fecha_options_str  += '<option value="19/8/2024">19/8/2024</option>';
-            Fecha_options_str  += '<option value="19/9/2024">19/9/2024</option>';
-            Fecha_options_str  += '<option value="2/1/2025">2/1/2025</option>';
-            Fecha_options_str  += '<option value="2/10/2023">2/10/2023</option>';
-            Fecha_options_str  += '<option value="2/10/2024">2/10/2024</option>';
-            Fecha_options_str  += '<option value="2/12/2024">2/12/2024</option>';
-            Fecha_options_str  += '<option value="2/4/2024">2/4/2024</option>';
-            Fecha_options_str  += '<option value="2/7/2024">2/7/2024</option>';
-            Fecha_options_str  += '<option value="2/9/2024">2/9/2024</option>';
-            Fecha_options_str  += '<option value="20/11/2024">20/11/2024</option>';
-            Fecha_options_str  += '<option value="20/3/2024">20/3/2024</option>';
-            Fecha_options_str  += '<option value="20/6/2024">20/6/2024</option>';
-            Fecha_options_str  += '<option value="20/8/2024">20/8/2024</option>';
-            Fecha_options_str  += '<option value="21/10/2024">21/10/2024</option>';
-            Fecha_options_str  += '<option value="21/11/2024">21/11/2024</option>';
-            Fecha_options_str  += '<option value="21/3/2024">21/3/2024</option>';
-            Fecha_options_str  += '<option value="21/5/2024">21/5/2024</option>';
-            Fecha_options_str  += '<option value="21/6/2024">21/6/2024</option>';
-            Fecha_options_str  += '<option value="21/8/2024">21/8/2024</option>';
-            Fecha_options_str  += '<option value="22/10/2024">22/10/2024</option>';
-            Fecha_options_str  += '<option value="22/2/2024">22/2/2024</option>';
-            Fecha_options_str  += '<option value="22/3/2024">22/3/2024</option>';
-            Fecha_options_str  += '<option value="22/4/2024">22/4/2024</option>';
-            Fecha_options_str  += '<option value="22/5/2024">22/5/2024</option>';
-            Fecha_options_str  += '<option value="22/7/2024">22/7/2024</option>';
-            Fecha_options_str  += '<option value="22/8/2024">22/8/2024</option>';
-            Fecha_options_str  += '<option value="23/10/2023">23/10/2023</option>';
-            Fecha_options_str  += '<option value="23/10/2024">23/10/2024</option>';
-            Fecha_options_str  += '<option value="23/12/2024">23/12/2024</option>';
-            Fecha_options_str  += '<option value="23/4/2024">23/4/2024</option>';
-            Fecha_options_str  += '<option value="23/7/2024">23/7/2024</option>';
-            Fecha_options_str  += '<option value="23/8/2024">23/8/2024</option>';
-            Fecha_options_str  += '<option value="23/9/2024">23/9/2024</option>';
-            Fecha_options_str  += '<option value="24/10/2023">24/10/2023</option>';
-            Fecha_options_str  += '<option value="24/10/2024">24/10/2024</option>';
-            Fecha_options_str  += '<option value="24/5/2024">24/5/2024</option>';
-            Fecha_options_str  += '<option value="24/6/2024">24/6/2024</option>';
-            Fecha_options_str  += '<option value="24/7/2024">24/7/2024</option>';
-            Fecha_options_str  += '<option value="24/9/2024">24/9/2024</option>';
-            Fecha_options_str  += '<option value="25/11/2024">25/11/2024</option>';
-            Fecha_options_str  += '<option value="25/3/2024">25/3/2024</option>';
-            Fecha_options_str  += '<option value="25/4/2024">25/4/2024</option>';
-            Fecha_options_str  += '<option value="25/6/2024">25/6/2024</option>';
-            Fecha_options_str  += '<option value="25/7/2024">25/7/2024</option>';
-            Fecha_options_str  += '<option value="25/9/2024">25/9/2024</option>';
-            Fecha_options_str  += '<option value="26/11/2024">26/11/2024</option>';
-            Fecha_options_str  += '<option value="26/12/2024">26/12/2024</option>';
-            Fecha_options_str  += '<option value="26/2/2024">26/2/2024</option>';
-            Fecha_options_str  += '<option value="26/3/2024">26/3/2024</option>';
-            Fecha_options_str  += '<option value="26/4/2024">26/4/2024</option>';
-            Fecha_options_str  += '<option value="26/6/2024">26/6/2024</option>';
-            Fecha_options_str  += '<option value="26/7/2024">26/7/2024</option>';
-            Fecha_options_str  += '<option value="26/8/2024">26/8/2024</option>';
-            Fecha_options_str  += '<option value="26/9/2024">26/9/2024</option>';
-            Fecha_options_str  += '<option value="27/11/2024">27/11/2024</option>';
-            Fecha_options_str  += '<option value="27/5/2024">27/5/2024</option>';
-            Fecha_options_str  += '<option value="27/6/2024">27/6/2024</option>';
-            Fecha_options_str  += '<option value="27/8/2024">27/8/2024</option>';
-            Fecha_options_str  += '<option value="28/10/2024">28/10/2024</option>';
-            Fecha_options_str  += '<option value="28/11/2024">28/11/2024</option>';
-            Fecha_options_str  += '<option value="28/6/2024">28/6/2024</option>';
-            Fecha_options_str  += '<option value="28/8/2024">28/8/2024</option>';
-            Fecha_options_str  += '<option value="29/10/2024">29/10/2024</option>';
-            Fecha_options_str  += '<option value="29/11/2024">29/11/2024</option>';
-            Fecha_options_str  += '<option value="29/4/2024">29/4/2024</option>';
-            Fecha_options_str  += '<option value="29/5/2024">29/5/2024</option>';
-            Fecha_options_str  += '<option value="29/7/2024">29/7/2024</option>';
-            Fecha_options_str  += '<option value="3/10/2023">3/10/2023</option>';
-            Fecha_options_str  += '<option value="3/10/2024">3/10/2024</option>';
-            Fecha_options_str  += '<option value="3/12/2024">3/12/2024</option>';
-            Fecha_options_str  += '<option value="3/6/2024">3/6/2024</option>';
-            Fecha_options_str  += '<option value="3/7/2024">3/7/2024</option>';
-            Fecha_options_str  += '<option value="3/9/2024">3/9/2024</option>';
-            Fecha_options_str  += '<option value="30/10/2024">30/10/2024</option>';
-            Fecha_options_str  += '<option value="30/12/2024">30/12/2024</option>';
-            Fecha_options_str  += '<option value="30/4/2024">30/4/2024</option>';
-            Fecha_options_str  += '<option value="30/5/2024">30/5/2024</option>';
-            Fecha_options_str  += '<option value="30/7/2024">30/7/2024</option>';
-            Fecha_options_str  += '<option value="30/9/2024">30/9/2024</option>';
-            Fecha_options_str  += '<option value="31/10/2024">31/10/2024</option>';
-            Fecha_options_str  += '<option value="31/5/2024">31/5/2024</option>';
-            Fecha_options_str  += '<option value="31/7/2024">31/7/2024</option>';
-            Fecha_options_str  += '<option value="4/10/2023">4/10/2023</option>';
-            Fecha_options_str  += '<option value="4/10/2024">4/10/2024</option>';
-            Fecha_options_str  += '<option value="4/11/2024">4/11/2024</option>';
-            Fecha_options_str  += '<option value="4/12/2024">4/12/2024</option>';
-            Fecha_options_str  += '<option value="4/4/2024">4/4/2024</option>';
-            Fecha_options_str  += '<option value="4/6/2024">4/6/2024</option>';
-            Fecha_options_str  += '<option value="4/7/2024">4/7/2024</option>';
-            Fecha_options_str  += '<option value="4/9/2024">4/9/2024</option>';
-            Fecha_options_str  += '<option value="5/10/2023">5/10/2023</option>';
-            Fecha_options_str  += '<option value="5/11/2024">5/11/2024</option>';
-            Fecha_options_str  += '<option value="5/12/2024">5/12/2024</option>';
-            Fecha_options_str  += '<option value="5/4/2024">5/4/2024</option>';
-            Fecha_options_str  += '<option value="5/7/2024">5/7/2024</option>';
-            Fecha_options_str  += '<option value="5/8/2024">5/8/2024</option>';
-            Fecha_options_str  += '<option value="5/9/2024">5/9/2024</option>';
-            Fecha_options_str  += '<option value="6/11/2024">6/11/2024</option>';
-            Fecha_options_str  += '<option value="6/12/2024">6/12/2024</option>';
-            Fecha_options_str  += '<option value="6/5/2024">6/5/2024</option>';
-            Fecha_options_str  += '<option value="6/6/2024">6/6/2024</option>';
-            Fecha_options_str  += '<option value="6/8/2024">6/8/2024</option>';
-            Fecha_options_str  += '<option value="6/9/2024">6/9/2024</option>';
-            Fecha_options_str  += '<option value="7/10/2024">7/10/2024</option>';
-            Fecha_options_str  += '<option value="7/11/2024">7/11/2024</option>';
-            Fecha_options_str  += '<option value="7/5/2024">7/5/2024</option>';
-            Fecha_options_str  += '<option value="7/8/2024">7/8/2024</option>';
-            Fecha_options_str  += '<option value="8/10/2024">8/10/2024</option>';
-            Fecha_options_str  += '<option value="8/4/2024">8/4/2024</option>';
-            Fecha_options_str  += '<option value="8/7/2024">8/7/2024</option>';
-            Fecha_options_str  += '<option value="8/8/2024">8/8/2024</option>';
-            Fecha_options_str  += '<option value="9/10/2023">9/10/2023</option>';
-            Fecha_options_str  += '<option value="9/10/2024">9/10/2024</option>';
-            Fecha_options_str  += '<option value="9/12/2024">9/12/2024</option>';
-            Fecha_options_str  += '<option value="9/5/2024">9/5/2024</option>';
-            Fecha_options_str  += '<option value="9/7/2024">9/7/2024</option>';
-            Fecha_options_str  += '<option value="9/8/2024">9/8/2024</option>';
-            Fecha_options_str  += '<option value="9/9/2024">9/9/2024</option>';
-            sel_Fecha.innerHTML = Fecha_options_str;
-            div_Fecha.appendChild(sel_Fecha);
-            var lab_Fecha = document.createElement('div');
-            lab_Fecha.innerHTML = 'Fecha';
-            lab_Fecha.className = 'filterlabel';
-            div_Fecha.appendChild(lab_Fecha);
-            var reset_Fecha = document.createElement('div');
-            reset_Fecha.innerHTML = 'clear filter';
-            reset_Fecha.className = 'filterlabel';
-            reset_Fecha.onclick = function() {
-                var options = document.getElementById("sel_Fecha").options;
-                for (var i=0; i < options.length; i++) {
-                    options[i].selected = false;
-                }
-                filterFunc();
-            };
-            div_Fecha.appendChild(reset_Fecha);
             document.getElementById("menu").appendChild(
                 document.createElement("div"));
             var div_NOM059SE = document.createElement('div');
@@ -694,6 +485,285 @@
                 filterFunc();
             };
             div_NOM059SE.appendChild(reset_NOM059SE);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Referencia = document.createElement('div');
+            div_Referencia.id = "div_Referencia";
+            div_Referencia.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Referencia);
+            sel_Referencia = document.createElement('select');
+            sel_Referencia.multiple = true;
+            sel_Referencia.size = 10;
+            sel_Referencia.id = "sel_Referencia";
+            var Referencia_options_str = "<option value='' unselected></option>";
+            sel_Referencia.onchange = function(){filterFunc()};
+            Referencia_options_str  += '<option value="ARPME">ARPME</option>';
+            Referencia_options_str  += '<option value="Almacen RP">Almacen RP</option>';
+            Referencia_options_str  += '<option value="Almacén">Almacén</option>';
+            Referencia_options_str  += '<option value="CEA">CEA</option>';
+            Referencia_options_str  += '<option value="CT 01">CT 01</option>';
+            Referencia_options_str  += '<option value="CT 02">CT 02</option>';
+            Referencia_options_str  += '<option value="CT 03">CT 03</option>';
+            Referencia_options_str  += '<option value="CT 04">CT 04</option>';
+            Referencia_options_str  += '<option value="CT 05">CT 05</option>';
+            Referencia_options_str  += '<option value="CT 06">CT 06</option>';
+            Referencia_options_str  += '<option value="CT 07">CT 07</option>';
+            Referencia_options_str  += '<option value="CT 08">CT 08</option>';
+            Referencia_options_str  += '<option value="CT 09">CT 09</option>';
+            Referencia_options_str  += '<option value="CT 10">CT 10</option>';
+            Referencia_options_str  += '<option value="CT 11">CT 11</option>';
+            Referencia_options_str  += '<option value="Camino de acceso">Camino de acceso</option>';
+            Referencia_options_str  += '<option value="Camino- Cerca de cámara perimetral">Camino- Cerca de cámara perimetral</option>';
+            Referencia_options_str  += '<option value="Caseta de acceso">Caseta de acceso</option>';
+            Referencia_options_str  += '<option value="Cerco perimetral">Cerco perimetral</option>';
+            Referencia_options_str  += '<option value="Detras de Oficina">Detras de Oficina</option>';
+            Referencia_options_str  += '<option value="Detrás de Subestación">Detrás de Subestación</option>';
+            Referencia_options_str  += '<option value="Detrás de parque solar">Detrás de parque solar</option>';
+            Referencia_options_str  += '<option value="Estacionamiento">Estacionamiento</option>';
+            Referencia_options_str  += '<option value="Fosas de Contención">Fosas de Contención</option>';
+            Referencia_options_str  += '<option value="Frente a O&M">Frente a O&M</option>';
+            Referencia_options_str  += '<option value="HINCA 79">HINCA 79</option>';
+            Referencia_options_str  += '<option value="Hinca 23">Hinca 23</option>';
+            Referencia_options_str  += '<option value="O&M">O&M</option>';
+            Referencia_options_str  += '<option value="Parcela de reforestación">Parcela de reforestación</option>';
+            Referencia_options_str  += '<option value="Parcela de reubicación">Parcela de reubicación</option>';
+            Referencia_options_str  += '<option value="SEL">SEL</option>';
+            Referencia_options_str  += '<option value="Subestación eléctrica">Subestación eléctrica</option>';
+            Referencia_options_str  += '<option value="Torre 10">Torre 10</option>';
+            Referencia_options_str  += '<option value="Torre 11">Torre 11</option>';
+            Referencia_options_str  += '<option value="Torre 9">Torre 9</option>';
+            Referencia_options_str  += '<option value="Vivero">Vivero</option>';
+            Referencia_options_str  += '<option value="Área de Paneles">Área de Paneles</option>';
+            sel_Referencia.innerHTML = Referencia_options_str;
+            div_Referencia.appendChild(sel_Referencia);
+            var lab_Referencia = document.createElement('div');
+            lab_Referencia.innerHTML = 'Referencia';
+            lab_Referencia.className = 'filterlabel';
+            div_Referencia.appendChild(lab_Referencia);
+            var reset_Referencia = document.createElement('div');
+            reset_Referencia.innerHTML = 'clear filter';
+            reset_Referencia.className = 'filterlabel';
+            reset_Referencia.onclick = function() {
+                var options = document.getElementById("sel_Referencia").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Referencia.appendChild(reset_Referencia);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_fecha = document.createElement('div');
+            div_fecha.id = "div_fecha";
+            div_fecha.className= "filterselect";
+            document.getElementById("menu").appendChild(div_fecha);
+            sel_fecha = document.createElement('select');
+            sel_fecha.multiple = true;
+            sel_fecha.size = 10;
+            sel_fecha.id = "sel_fecha";
+            var fecha_options_str = "<option value='' unselected></option>";
+            sel_fecha.onchange = function(){filterFunc()};
+            fecha_options_str  += '<option value="06/01/2025">06/01/2025</option>';
+            fecha_options_str  += '<option value="07/01/2025">07/01/2025</option>';
+            fecha_options_str  += '<option value="08/01/2025">08/01/2025</option>';
+            fecha_options_str  += '<option value="09/01/2025">09/01/2025</option>';
+            fecha_options_str  += '<option value="1/4/2024">1/4/2024</option>';
+            fecha_options_str  += '<option value="1/7/2024">1/7/2024</option>';
+            fecha_options_str  += '<option value="1/8/2024">1/8/2024</option>';
+            fecha_options_str  += '<option value="10/01/2025">10/01/2025</option>';
+            fecha_options_str  += '<option value="10/10/2024">10/10/2024</option>';
+            fecha_options_str  += '<option value="10/12/2024">10/12/2024</option>';
+            fecha_options_str  += '<option value="10/5/2024">10/5/2024</option>';
+            fecha_options_str  += '<option value="10/6/2024">10/6/2024</option>';
+            fecha_options_str  += '<option value="10/7/2024">10/7/2024</option>';
+            fecha_options_str  += '<option value="10/9/2024">10/9/2024</option>';
+            fecha_options_str  += '<option value="11/10/2023">11/10/2023</option>';
+            fecha_options_str  += '<option value="11/10/2024">11/10/2024</option>';
+            fecha_options_str  += '<option value="11/11/2024">11/11/2024</option>';
+            fecha_options_str  += '<option value="11/12/2024">11/12/2024</option>';
+            fecha_options_str  += '<option value="11/7/2024">11/7/2024</option>';
+            fecha_options_str  += '<option value="11/9/2024">11/9/2024</option>';
+            fecha_options_str  += '<option value="12/11/2024">12/11/2024</option>';
+            fecha_options_str  += '<option value="12/12/2024">12/12/2024</option>';
+            fecha_options_str  += '<option value="12/6/2024">12/6/2024</option>';
+            fecha_options_str  += '<option value="12/7/2024">12/7/2024</option>';
+            fecha_options_str  += '<option value="12/8/2024">12/8/2024</option>';
+            fecha_options_str  += '<option value="12/9/2024">12/9/2024</option>';
+            fecha_options_str  += '<option value="13/01/2025">13/01/2025</option>';
+            fecha_options_str  += '<option value="13/10/2023">13/10/2023</option>';
+            fecha_options_str  += '<option value="13/11/2024">13/11/2024</option>';
+            fecha_options_str  += '<option value="13/5/2024">13/5/2024</option>';
+            fecha_options_str  += '<option value="13/6/2024">13/6/2024</option>';
+            fecha_options_str  += '<option value="13/8/2024">13/8/2024</option>';
+            fecha_options_str  += '<option value="13/9/2024">13/9/2024</option>';
+            fecha_options_str  += '<option value="14/01/2025">14/01/2025</option>';
+            fecha_options_str  += '<option value="14/10/2024">14/10/2024</option>';
+            fecha_options_str  += '<option value="14/11/2024">14/11/2024</option>';
+            fecha_options_str  += '<option value="14/5/2024">14/5/2024</option>';
+            fecha_options_str  += '<option value="14/6/2024">14/6/2024</option>';
+            fecha_options_str  += '<option value="14/8/2024">14/8/2024</option>';
+            fecha_options_str  += '<option value="15/01/2025">15/01/2025</option>';
+            fecha_options_str  += '<option value="15/10/2024">15/10/2024</option>';
+            fecha_options_str  += '<option value="15/7/2024">15/7/2024</option>';
+            fecha_options_str  += '<option value="15/8/2024">15/8/2024</option>';
+            fecha_options_str  += '<option value="16/01/2025">16/01/2025</option>';
+            fecha_options_str  += '<option value="16/10/2023">16/10/2023</option>';
+            fecha_options_str  += '<option value="16/10/2024">16/10/2024</option>';
+            fecha_options_str  += '<option value="16/12/2024">16/12/2024</option>';
+            fecha_options_str  += '<option value="16/7/2024">16/7/2024</option>';
+            fecha_options_str  += '<option value="16/8/2024">16/8/2024</option>';
+            fecha_options_str  += '<option value="17/10/2024">17/10/2024</option>';
+            fecha_options_str  += '<option value="17/12/2024">17/12/2024</option>';
+            fecha_options_str  += '<option value="17/5/2024">17/5/2024</option>';
+            fecha_options_str  += '<option value="17/6/2024">17/6/2024</option>';
+            fecha_options_str  += '<option value="17/7/2024">17/7/2024</option>';
+            fecha_options_str  += '<option value="17/9/2024">17/9/2024</option>';
+            fecha_options_str  += '<option value="18/12/2024">18/12/2024</option>';
+            fecha_options_str  += '<option value="18/6/2024">18/6/2024</option>';
+            fecha_options_str  += '<option value="18/7/2024">18/7/2024</option>';
+            fecha_options_str  += '<option value="18/9/2024">18/9/2024</option>';
+            fecha_options_str  += '<option value="19/10/2023">19/10/2023</option>';
+            fecha_options_str  += '<option value="19/11/2024">19/11/2024</option>';
+            fecha_options_str  += '<option value="19/12/2024">19/12/2024</option>';
+            fecha_options_str  += '<option value="19/2/2024">19/2/2024</option>';
+            fecha_options_str  += '<option value="19/3/2024">19/3/2024</option>';
+            fecha_options_str  += '<option value="19/6/2024">19/6/2024</option>';
+            fecha_options_str  += '<option value="19/7/2024">19/7/2024</option>';
+            fecha_options_str  += '<option value="19/8/2024">19/8/2024</option>';
+            fecha_options_str  += '<option value="19/9/2024">19/9/2024</option>';
+            fecha_options_str  += '<option value="2/1/2025">2/1/2025</option>';
+            fecha_options_str  += '<option value="2/10/2023">2/10/2023</option>';
+            fecha_options_str  += '<option value="2/10/2024">2/10/2024</option>';
+            fecha_options_str  += '<option value="2/12/2024">2/12/2024</option>';
+            fecha_options_str  += '<option value="2/4/2024">2/4/2024</option>';
+            fecha_options_str  += '<option value="2/7/2024">2/7/2024</option>';
+            fecha_options_str  += '<option value="2/9/2024">2/9/2024</option>';
+            fecha_options_str  += '<option value="20/11/2024">20/11/2024</option>';
+            fecha_options_str  += '<option value="20/3/2024">20/3/2024</option>';
+            fecha_options_str  += '<option value="20/6/2024">20/6/2024</option>';
+            fecha_options_str  += '<option value="20/8/2024">20/8/2024</option>';
+            fecha_options_str  += '<option value="21/10/2024">21/10/2024</option>';
+            fecha_options_str  += '<option value="21/11/2024">21/11/2024</option>';
+            fecha_options_str  += '<option value="21/3/2024">21/3/2024</option>';
+            fecha_options_str  += '<option value="21/5/2024">21/5/2024</option>';
+            fecha_options_str  += '<option value="21/6/2024">21/6/2024</option>';
+            fecha_options_str  += '<option value="21/8/2024">21/8/2024</option>';
+            fecha_options_str  += '<option value="22/10/2024">22/10/2024</option>';
+            fecha_options_str  += '<option value="22/2/2024">22/2/2024</option>';
+            fecha_options_str  += '<option value="22/3/2024">22/3/2024</option>';
+            fecha_options_str  += '<option value="22/4/2024">22/4/2024</option>';
+            fecha_options_str  += '<option value="22/5/2024">22/5/2024</option>';
+            fecha_options_str  += '<option value="22/7/2024">22/7/2024</option>';
+            fecha_options_str  += '<option value="22/8/2024">22/8/2024</option>';
+            fecha_options_str  += '<option value="23/10/2023">23/10/2023</option>';
+            fecha_options_str  += '<option value="23/10/2024">23/10/2024</option>';
+            fecha_options_str  += '<option value="23/12/2024">23/12/2024</option>';
+            fecha_options_str  += '<option value="23/4/2024">23/4/2024</option>';
+            fecha_options_str  += '<option value="23/7/2024">23/7/2024</option>';
+            fecha_options_str  += '<option value="23/8/2024">23/8/2024</option>';
+            fecha_options_str  += '<option value="23/9/2024">23/9/2024</option>';
+            fecha_options_str  += '<option value="24/10/2023">24/10/2023</option>';
+            fecha_options_str  += '<option value="24/10/2024">24/10/2024</option>';
+            fecha_options_str  += '<option value="24/5/2024">24/5/2024</option>';
+            fecha_options_str  += '<option value="24/6/2024">24/6/2024</option>';
+            fecha_options_str  += '<option value="24/7/2024">24/7/2024</option>';
+            fecha_options_str  += '<option value="24/9/2024">24/9/2024</option>';
+            fecha_options_str  += '<option value="25/11/2024">25/11/2024</option>';
+            fecha_options_str  += '<option value="25/3/2024">25/3/2024</option>';
+            fecha_options_str  += '<option value="25/4/2024">25/4/2024</option>';
+            fecha_options_str  += '<option value="25/6/2024">25/6/2024</option>';
+            fecha_options_str  += '<option value="25/7/2024">25/7/2024</option>';
+            fecha_options_str  += '<option value="25/9/2024">25/9/2024</option>';
+            fecha_options_str  += '<option value="26/11/2024">26/11/2024</option>';
+            fecha_options_str  += '<option value="26/12/2024">26/12/2024</option>';
+            fecha_options_str  += '<option value="26/2/2024">26/2/2024</option>';
+            fecha_options_str  += '<option value="26/3/2024">26/3/2024</option>';
+            fecha_options_str  += '<option value="26/4/2024">26/4/2024</option>';
+            fecha_options_str  += '<option value="26/6/2024">26/6/2024</option>';
+            fecha_options_str  += '<option value="26/7/2024">26/7/2024</option>';
+            fecha_options_str  += '<option value="26/8/2024">26/8/2024</option>';
+            fecha_options_str  += '<option value="26/9/2024">26/9/2024</option>';
+            fecha_options_str  += '<option value="27/11/2024">27/11/2024</option>';
+            fecha_options_str  += '<option value="27/5/2024">27/5/2024</option>';
+            fecha_options_str  += '<option value="27/6/2024">27/6/2024</option>';
+            fecha_options_str  += '<option value="27/8/2024">27/8/2024</option>';
+            fecha_options_str  += '<option value="28/10/2024">28/10/2024</option>';
+            fecha_options_str  += '<option value="28/11/2024">28/11/2024</option>';
+            fecha_options_str  += '<option value="28/6/2024">28/6/2024</option>';
+            fecha_options_str  += '<option value="28/8/2024">28/8/2024</option>';
+            fecha_options_str  += '<option value="29/10/2024">29/10/2024</option>';
+            fecha_options_str  += '<option value="29/11/2024">29/11/2024</option>';
+            fecha_options_str  += '<option value="29/4/2024">29/4/2024</option>';
+            fecha_options_str  += '<option value="29/5/2024">29/5/2024</option>';
+            fecha_options_str  += '<option value="29/7/2024">29/7/2024</option>';
+            fecha_options_str  += '<option value="3/10/2023">3/10/2023</option>';
+            fecha_options_str  += '<option value="3/10/2024">3/10/2024</option>';
+            fecha_options_str  += '<option value="3/12/2024">3/12/2024</option>';
+            fecha_options_str  += '<option value="3/6/2024">3/6/2024</option>';
+            fecha_options_str  += '<option value="3/7/2024">3/7/2024</option>';
+            fecha_options_str  += '<option value="3/9/2024">3/9/2024</option>';
+            fecha_options_str  += '<option value="30/10/2024">30/10/2024</option>';
+            fecha_options_str  += '<option value="30/12/2024">30/12/2024</option>';
+            fecha_options_str  += '<option value="30/4/2024">30/4/2024</option>';
+            fecha_options_str  += '<option value="30/5/2024">30/5/2024</option>';
+            fecha_options_str  += '<option value="30/7/2024">30/7/2024</option>';
+            fecha_options_str  += '<option value="30/9/2024">30/9/2024</option>';
+            fecha_options_str  += '<option value="31/10/2024">31/10/2024</option>';
+            fecha_options_str  += '<option value="31/5/2024">31/5/2024</option>';
+            fecha_options_str  += '<option value="31/7/2024">31/7/2024</option>';
+            fecha_options_str  += '<option value="4/10/2023">4/10/2023</option>';
+            fecha_options_str  += '<option value="4/10/2024">4/10/2024</option>';
+            fecha_options_str  += '<option value="4/11/2024">4/11/2024</option>';
+            fecha_options_str  += '<option value="4/12/2024">4/12/2024</option>';
+            fecha_options_str  += '<option value="4/4/2024">4/4/2024</option>';
+            fecha_options_str  += '<option value="4/6/2024">4/6/2024</option>';
+            fecha_options_str  += '<option value="4/7/2024">4/7/2024</option>';
+            fecha_options_str  += '<option value="4/9/2024">4/9/2024</option>';
+            fecha_options_str  += '<option value="5/10/2023">5/10/2023</option>';
+            fecha_options_str  += '<option value="5/11/2024">5/11/2024</option>';
+            fecha_options_str  += '<option value="5/12/2024">5/12/2024</option>';
+            fecha_options_str  += '<option value="5/4/2024">5/4/2024</option>';
+            fecha_options_str  += '<option value="5/7/2024">5/7/2024</option>';
+            fecha_options_str  += '<option value="5/8/2024">5/8/2024</option>';
+            fecha_options_str  += '<option value="5/9/2024">5/9/2024</option>';
+            fecha_options_str  += '<option value="6/11/2024">6/11/2024</option>';
+            fecha_options_str  += '<option value="6/12/2024">6/12/2024</option>';
+            fecha_options_str  += '<option value="6/5/2024">6/5/2024</option>';
+            fecha_options_str  += '<option value="6/6/2024">6/6/2024</option>';
+            fecha_options_str  += '<option value="6/8/2024">6/8/2024</option>';
+            fecha_options_str  += '<option value="6/9/2024">6/9/2024</option>';
+            fecha_options_str  += '<option value="7/10/2024">7/10/2024</option>';
+            fecha_options_str  += '<option value="7/11/2024">7/11/2024</option>';
+            fecha_options_str  += '<option value="7/5/2024">7/5/2024</option>';
+            fecha_options_str  += '<option value="7/8/2024">7/8/2024</option>';
+            fecha_options_str  += '<option value="8/10/2024">8/10/2024</option>';
+            fecha_options_str  += '<option value="8/4/2024">8/4/2024</option>';
+            fecha_options_str  += '<option value="8/7/2024">8/7/2024</option>';
+            fecha_options_str  += '<option value="8/8/2024">8/8/2024</option>';
+            fecha_options_str  += '<option value="9/10/2023">9/10/2023</option>';
+            fecha_options_str  += '<option value="9/10/2024">9/10/2024</option>';
+            fecha_options_str  += '<option value="9/12/2024">9/12/2024</option>';
+            fecha_options_str  += '<option value="9/5/2024">9/5/2024</option>';
+            fecha_options_str  += '<option value="9/7/2024">9/7/2024</option>';
+            fecha_options_str  += '<option value="9/8/2024">9/8/2024</option>';
+            fecha_options_str  += '<option value="9/9/2024">9/9/2024</option>';
+            sel_fecha.innerHTML = fecha_options_str;
+            div_fecha.appendChild(sel_fecha);
+            var lab_fecha = document.createElement('div');
+            lab_fecha.innerHTML = 'fecha';
+            lab_fecha.className = 'filterlabel';
+            div_fecha.appendChild(lab_fecha);
+            var reset_fecha = document.createElement('div');
+            reset_fecha.innerHTML = 'clear filter';
+            reset_fecha.className = 'filterlabel';
+            reset_fecha.onclick = function() {
+                var options = document.getElementById("sel_fecha").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_fecha.appendChild(reset_fecha);
         </script>
     </body>
 </html>
