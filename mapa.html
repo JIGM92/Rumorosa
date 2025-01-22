@@ -63,7 +63,7 @@
         }
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[32.48570176699712,-116.07679269237873],[32.68987433383685,-115.71467542299396]]);
+        }).fitBounds([[32.49266894872598,-116.07672151817592],[32.696842128730076,-115.714575579711]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -151,60 +151,46 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">fecha</th>\
-                        <td class="visible-with-data" id="fecha">' + (feature.properties['fecha'] !== null ? autolinker.link(feature.properties['fecha'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>fecha</strong><br />' + (feature.properties['fecha'] !== null ? autolinker.link(feature.properties['fecha'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Referencia</th>\
-                        <td class="visible-with-data" id="Referencia">' + (feature.properties['Referencia'] !== null ? autolinker.link(feature.properties['Referencia'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Referencia</strong><br />' + (feature.properties['Referencia'] !== null ? autolinker.link(feature.properties['Referencia'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Grupo Faun</th>\
-                        <td class="visible-with-data" id="Grupo Faun">' + (feature.properties['Grupo Faun'] !== null ? autolinker.link(feature.properties['Grupo Faun'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Grupo Faun</strong><br />' + (feature.properties['Grupo Faun'] !== null ? autolinker.link(feature.properties['Grupo Faun'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Orden</th>\
-                        <td class="visible-with-data" id="Orden">' + (feature.properties['Orden'] !== null ? autolinker.link(feature.properties['Orden'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Orden</strong><br />' + (feature.properties['Orden'] !== null ? autolinker.link(feature.properties['Orden'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Nombre cie</th>\
-                        <td class="visible-with-data" id="Nombre cie">' + (feature.properties['Nombre cie'] !== null ? autolinker.link(feature.properties['Nombre cie'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Nombre cie</strong><br />' + (feature.properties['Nombre cie'] !== null ? autolinker.link(feature.properties['Nombre cie'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Nombre com</th>\
-                        <td class="visible-with-data" id="Nombre com">' + (feature.properties['Nombre com'] !== null ? autolinker.link(feature.properties['Nombre com'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Nombre com</strong><br />' + (feature.properties['Nombre com'] !== null ? autolinker.link(feature.properties['Nombre com'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">NOM 059 SE</th>\
-                        <td class="visible-with-data" id="NOM 059 SE">' + (feature.properties['NOM 059 SE'] !== null ? autolinker.link(feature.properties['NOM 059 SE'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>NOM 059 SE</strong><br />' + (feature.properties['NOM 059 SE'] !== null ? autolinker.link(feature.properties['NOM 059 SE'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">IUCN</th>\
-                        <td class="visible-with-data" id="IUCN">' + (feature.properties['IUCN'] !== null ? autolinker.link(feature.properties['IUCN'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>IUCN</strong><br />' + (feature.properties['IUCN'] !== null ? autolinker.link(feature.properties['IUCN'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Tipo de re</th>\
-                        <td class="visible-with-data" id="Tipo de re">' + (feature.properties['Tipo de re'] !== null ? autolinker.link(feature.properties['Tipo de re'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Tipo de re</strong><br />' + (feature.properties['Tipo de re'] !== null ? autolinker.link(feature.properties['Tipo de re'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">X</th>\
-                        <td class="visible-with-data" id="X">' + (feature.properties['X'] !== null ? autolinker.link(feature.properties['X'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>X</strong><br />' + (feature.properties['X'] !== null ? autolinker.link(feature.properties['X'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Y</th>\
-                        <td class="visible-with-data" id="Y">' + (feature.properties['Y'] !== null ? autolinker.link(feature.properties['Y'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Y</strong><br />' + (feature.properties['Y'] !== null ? autolinker.link(feature.properties['Y'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Método de</th>\
-                        <td class="visible-with-data" id="Método de">' + (feature.properties['Método de'] !== null ? autolinker.link(feature.properties['Método de'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Método de</strong><br />' + (feature.properties['Método de'] !== null ? autolinker.link(feature.properties['Método de'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Horario de</th>\
-                        <td class="visible-with-data" id="Horario de">' + (feature.properties['Horario de'] !== null ? autolinker.link(feature.properties['Horario de'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Horario de</strong><br />' + (feature.properties['Horario de'] !== null ? autolinker.link(feature.properties['Horario de'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Supervisor</th>\
-                        <td class="visible-with-data" id="Supervisor">' + (feature.properties['Supervisor'] !== null ? autolinker.link(feature.properties['Supervisor'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>Supervisor</strong><br />' + (feature.properties['Supervisor'] !== null ? autolinker.link(feature.properties['Supervisor'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -331,7 +317,7 @@
         document.getElementById("all").appendChild(col1);
         document.getElementById("all").appendChild(col2);
         col1.appendChild(mapDiv)
-        var Filters = {"Grupo Faun": "str","NOM 059 SE": "str","Referencia": "str","fecha": "str"};
+        var Filters = {"Grupo Faun": "str","NOM 059 SE": "str","fecha": "str","Tipo de re": "str","Referencia": "str"};
         function filterFunc() {
           map.eachLayer(function(lyr){
           if ("options" in lyr && "dataVar" in lyr["options"]){
@@ -485,72 +471,6 @@
                 filterFunc();
             };
             div_NOM059SE.appendChild(reset_NOM059SE);
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_Referencia = document.createElement('div');
-            div_Referencia.id = "div_Referencia";
-            div_Referencia.className= "filterselect";
-            document.getElementById("menu").appendChild(div_Referencia);
-            sel_Referencia = document.createElement('select');
-            sel_Referencia.multiple = true;
-            sel_Referencia.size = 10;
-            sel_Referencia.id = "sel_Referencia";
-            var Referencia_options_str = "<option value='' unselected></option>";
-            sel_Referencia.onchange = function(){filterFunc()};
-            Referencia_options_str  += '<option value="ARPME">ARPME</option>';
-            Referencia_options_str  += '<option value="Almacen RP">Almacen RP</option>';
-            Referencia_options_str  += '<option value="Almacén">Almacén</option>';
-            Referencia_options_str  += '<option value="CEA">CEA</option>';
-            Referencia_options_str  += '<option value="CT 01">CT 01</option>';
-            Referencia_options_str  += '<option value="CT 02">CT 02</option>';
-            Referencia_options_str  += '<option value="CT 03">CT 03</option>';
-            Referencia_options_str  += '<option value="CT 04">CT 04</option>';
-            Referencia_options_str  += '<option value="CT 05">CT 05</option>';
-            Referencia_options_str  += '<option value="CT 06">CT 06</option>';
-            Referencia_options_str  += '<option value="CT 07">CT 07</option>';
-            Referencia_options_str  += '<option value="CT 08">CT 08</option>';
-            Referencia_options_str  += '<option value="CT 09">CT 09</option>';
-            Referencia_options_str  += '<option value="CT 10">CT 10</option>';
-            Referencia_options_str  += '<option value="CT 11">CT 11</option>';
-            Referencia_options_str  += '<option value="Camino de acceso">Camino de acceso</option>';
-            Referencia_options_str  += '<option value="Camino- Cerca de cámara perimetral">Camino- Cerca de cámara perimetral</option>';
-            Referencia_options_str  += '<option value="Caseta de acceso">Caseta de acceso</option>';
-            Referencia_options_str  += '<option value="Cerco perimetral">Cerco perimetral</option>';
-            Referencia_options_str  += '<option value="Detras de Oficina">Detras de Oficina</option>';
-            Referencia_options_str  += '<option value="Detrás de Subestación">Detrás de Subestación</option>';
-            Referencia_options_str  += '<option value="Detrás de parque solar">Detrás de parque solar</option>';
-            Referencia_options_str  += '<option value="Estacionamiento">Estacionamiento</option>';
-            Referencia_options_str  += '<option value="Fosas de Contención">Fosas de Contención</option>';
-            Referencia_options_str  += '<option value="Frente a O&M">Frente a O&M</option>';
-            Referencia_options_str  += '<option value="HINCA 79">HINCA 79</option>';
-            Referencia_options_str  += '<option value="Hinca 23">Hinca 23</option>';
-            Referencia_options_str  += '<option value="O&M">O&M</option>';
-            Referencia_options_str  += '<option value="Parcela de reforestación">Parcela de reforestación</option>';
-            Referencia_options_str  += '<option value="Parcela de reubicación">Parcela de reubicación</option>';
-            Referencia_options_str  += '<option value="SEL">SEL</option>';
-            Referencia_options_str  += '<option value="Subestación eléctrica">Subestación eléctrica</option>';
-            Referencia_options_str  += '<option value="Torre 10">Torre 10</option>';
-            Referencia_options_str  += '<option value="Torre 11">Torre 11</option>';
-            Referencia_options_str  += '<option value="Torre 9">Torre 9</option>';
-            Referencia_options_str  += '<option value="Vivero">Vivero</option>';
-            Referencia_options_str  += '<option value="Área de Paneles">Área de Paneles</option>';
-            sel_Referencia.innerHTML = Referencia_options_str;
-            div_Referencia.appendChild(sel_Referencia);
-            var lab_Referencia = document.createElement('div');
-            lab_Referencia.innerHTML = 'Referencia';
-            lab_Referencia.className = 'filterlabel';
-            div_Referencia.appendChild(lab_Referencia);
-            var reset_Referencia = document.createElement('div');
-            reset_Referencia.innerHTML = 'clear filter';
-            reset_Referencia.className = 'filterlabel';
-            reset_Referencia.onclick = function() {
-                var options = document.getElementById("sel_Referencia").options;
-                for (var i=0; i < options.length; i++) {
-                    options[i].selected = false;
-                }
-                filterFunc();
-            };
-            div_Referencia.appendChild(reset_Referencia);
             document.getElementById("menu").appendChild(
                 document.createElement("div"));
             var div_fecha = document.createElement('div');
@@ -764,6 +684,108 @@
                 filterFunc();
             };
             div_fecha.appendChild(reset_fecha);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Tipodere = document.createElement('div');
+            div_Tipodere.id = "div_Tipodere";
+            div_Tipodere.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Tipodere);
+            sel_Tipodere = document.createElement('select');
+            sel_Tipodere.multiple = true;
+            sel_Tipodere.size = 7;
+            sel_Tipodere.id = "sel_Tipodere";
+            var Tipodere_options_str = "<option value='' unselected></option>";
+            sel_Tipodere.onchange = function(){filterFunc()};
+            Tipodere_options_str  += '<option value="Alimentándose">Alimentándose</option>';
+            Tipodere_options_str  += '<option value="Desplazamiento terrestre">Desplazamiento terrestre</option>';
+            Tipodere_options_str  += '<option value="Muerto">Muerto</option>';
+            Tipodere_options_str  += '<option value="Percheo">Percheo</option>';
+            Tipodere_options_str  += '<option value="Reposo">Reposo</option>';
+            Tipodere_options_str  += '<option value="Rescate y reubicación">Rescate y reubicación</option>';
+            Tipodere_options_str  += '<option value="Vuelo">Vuelo</option>';
+            sel_Tipodere.innerHTML = Tipodere_options_str;
+            div_Tipodere.appendChild(sel_Tipodere);
+            var lab_Tipodere = document.createElement('div');
+            lab_Tipodere.innerHTML = 'Tipo de re';
+            lab_Tipodere.className = 'filterlabel';
+            div_Tipodere.appendChild(lab_Tipodere);
+            var reset_Tipodere = document.createElement('div');
+            reset_Tipodere.innerHTML = 'clear filter';
+            reset_Tipodere.className = 'filterlabel';
+            reset_Tipodere.onclick = function() {
+                var options = document.getElementById("sel_Tipodere").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Tipodere.appendChild(reset_Tipodere);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Referencia = document.createElement('div');
+            div_Referencia.id = "div_Referencia";
+            div_Referencia.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Referencia);
+            sel_Referencia = document.createElement('select');
+            sel_Referencia.multiple = true;
+            sel_Referencia.size = 10;
+            sel_Referencia.id = "sel_Referencia";
+            var Referencia_options_str = "<option value='' unselected></option>";
+            sel_Referencia.onchange = function(){filterFunc()};
+            Referencia_options_str  += '<option value="ARPME">ARPME</option>';
+            Referencia_options_str  += '<option value="Almacen RP">Almacen RP</option>';
+            Referencia_options_str  += '<option value="Almacén">Almacén</option>';
+            Referencia_options_str  += '<option value="CEA">CEA</option>';
+            Referencia_options_str  += '<option value="CT 01">CT 01</option>';
+            Referencia_options_str  += '<option value="CT 02">CT 02</option>';
+            Referencia_options_str  += '<option value="CT 03">CT 03</option>';
+            Referencia_options_str  += '<option value="CT 04">CT 04</option>';
+            Referencia_options_str  += '<option value="CT 05">CT 05</option>';
+            Referencia_options_str  += '<option value="CT 06">CT 06</option>';
+            Referencia_options_str  += '<option value="CT 07">CT 07</option>';
+            Referencia_options_str  += '<option value="CT 08">CT 08</option>';
+            Referencia_options_str  += '<option value="CT 09">CT 09</option>';
+            Referencia_options_str  += '<option value="CT 10">CT 10</option>';
+            Referencia_options_str  += '<option value="CT 11">CT 11</option>';
+            Referencia_options_str  += '<option value="Camino de acceso">Camino de acceso</option>';
+            Referencia_options_str  += '<option value="Camino- Cerca de cámara perimetral">Camino- Cerca de cámara perimetral</option>';
+            Referencia_options_str  += '<option value="Caseta de acceso">Caseta de acceso</option>';
+            Referencia_options_str  += '<option value="Cerco perimetral">Cerco perimetral</option>';
+            Referencia_options_str  += '<option value="Detras de Oficina">Detras de Oficina</option>';
+            Referencia_options_str  += '<option value="Detrás de Subestación">Detrás de Subestación</option>';
+            Referencia_options_str  += '<option value="Detrás de parque solar">Detrás de parque solar</option>';
+            Referencia_options_str  += '<option value="Estacionamiento">Estacionamiento</option>';
+            Referencia_options_str  += '<option value="Fosas de Contención">Fosas de Contención</option>';
+            Referencia_options_str  += '<option value="Frente a O&M">Frente a O&M</option>';
+            Referencia_options_str  += '<option value="HINCA 79">HINCA 79</option>';
+            Referencia_options_str  += '<option value="Hinca 23">Hinca 23</option>';
+            Referencia_options_str  += '<option value="O&M">O&M</option>';
+            Referencia_options_str  += '<option value="Parcela de reforestación">Parcela de reforestación</option>';
+            Referencia_options_str  += '<option value="Parcela de reubicación">Parcela de reubicación</option>';
+            Referencia_options_str  += '<option value="SEL">SEL</option>';
+            Referencia_options_str  += '<option value="Subestación eléctrica">Subestación eléctrica</option>';
+            Referencia_options_str  += '<option value="Torre 10">Torre 10</option>';
+            Referencia_options_str  += '<option value="Torre 11">Torre 11</option>';
+            Referencia_options_str  += '<option value="Torre 9">Torre 9</option>';
+            Referencia_options_str  += '<option value="Vivero">Vivero</option>';
+            Referencia_options_str  += '<option value="Área de Paneles">Área de Paneles</option>';
+            sel_Referencia.innerHTML = Referencia_options_str;
+            div_Referencia.appendChild(sel_Referencia);
+            var lab_Referencia = document.createElement('div');
+            lab_Referencia.innerHTML = 'Referencia';
+            lab_Referencia.className = 'filterlabel';
+            div_Referencia.appendChild(lab_Referencia);
+            var reset_Referencia = document.createElement('div');
+            reset_Referencia.innerHTML = 'clear filter';
+            reset_Referencia.className = 'filterlabel';
+            reset_Referencia.onclick = function() {
+                var options = document.getElementById("sel_Referencia").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Referencia.appendChild(reset_Referencia);
         </script>
     </body>
 </html>
